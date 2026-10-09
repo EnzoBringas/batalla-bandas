@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batalla de las Bandas · Zona Oeste</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Rajdhani:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg:#0A0A14;
+    --bg-alt:#13121F;
+    --panel:#181729;
+    --pink:#FF3EA5;
+    --purple:#8B5CF6;
+    --gold:#F2C14E;
+    --green:#5FD38D;
+    --red:#FF5C5C;
+    --ink:#F3EFEA;
+    --line: rgba(243,239,234,0.14);
+  }
+  html{scroll-behavior:smooth; scroll-padding-top:12px;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.35) 0, transparent 60%),
+      radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.25) 0, transparent 60%),
+      radial-gradient(1.5px 1.5px at 60% 70%, rgba(255,255,255,0.3) 0, transparent 60%),
+      radial-gradient(1px 1px at 30% 85%, rgba(255,255,255,0.2) 0, transparent 60%);
+  }
+  .display{font-family:'Bungee', sans-serif; letter-spacing:0.01em;}
+  .mono-digit{font-family:'Rajdhani', sans-serif; font-weight:700;}
+  .chrome-text{
+    background: linear-gradient(100deg, #FFFFFF 0%, #E7C9F5 18%, var(--pink) 38%, var(--purple) 58%, var(--gold) 78%, #FFFFFF 100%);
+    background-size: 250% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    filter: drop-shadow(0 3px 0 rgba(0,0,0,0.55));
+    animation: sheen 7s ease-in-out infinite;
+  }
+  @keyframes sheen{
+    0%{background-position: 0% 50%;}
+    50%{background-position: 100% 50%;}
+    100%{background-position: 0% 50%;}
+  }
+  .glow-pink{box-shadow: 0 0 22px rgba(255,62,165,0.35);}
+  .hairline{border-color:var(--line);}
+
+  .bulb{
+    width:9px;height:9px;border-radius:9999px;flex-shrink:0;
+    background: radial-gradient(circle at 35% 30%, #fff, var(--pink) 45%, #7a1450 100%);
+    box-shadow: 0 0 8px 2px rgba(255,62,165,0.6);
+    animation: pulse-pink 1.8s ease-in-out infinite;
+  }
+  .bulb.blue{
+    background: radial-gradient(circle at 35% 30%, #fff, #4EC5F2 45%, #0d4a63 100%);
+    box-shadow: 0 0 8px 2px rgba(78,197,242,0.6);
+    animation: pulse-blue 1.8s ease-in-out infinite;
+    animation-delay: 0.6s;
+  }
+  @keyframes pulse-pink{
+    0%,100%{opacity:1; box-shadow: 0 0 8px 2px rgba(255,62,165,0.6);}
+    50%{opacity:0.45; box-shadow: 0 0 3px 1px rgba(255,62,165,0.3);}
+  }
+  @keyframes pulse-blue{
+    0%,100%{opacity:1; box-shadow: 0 0 8px 2px rgba(78,197,242,0.6);}
+    50%{opacity:0.45; box-shadow: 0 0 3px 1px rgba(78,197,242,0.3);}
+  }
+
+  .badge-pill{border:1px solid var(--pink); background: rgba(255,62,165,0.08);}
+  .ticket{background: var(--panel); border: 1.5px dashed rgba(242,193,78,0.45);}
+  .ticket::before, .ticket::after{
+    content:""; position:absolute; width:20px;height:20px;
+    background:var(--bg); border-radius:9999px; top:50%; transform:translateY(-50%);
+  }
+  .ticket::before{left:-10px;}
+  .ticket::after{right:-10px;}
+  .plaque{
+    background: linear-gradient(180deg, #23213A, #16152A);
+    border:1px solid rgba(242,193,78,0.35);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+  .plaque:hover{transform: translateY(-3px); border-color: rgba(242,193,78,0.7);}
+
+  .btn-pink{
+    background: linear-gradient(180deg, #FF67B8, var(--pink));
+    color:#1A0A14;
+    transition: transform 0.15s ease, filter 0.15s ease, opacity 0.15s ease;
+  }
+  .btn-pink:hover:not(:disabled){filter:brightness(1.08); transform: translateY(-2px);}
+  .btn-pink:disabled{opacity:0.4; cursor:not-allowed; box-shadow:none;}
+  .btn-outline{
+    border:2px solid var(--gold); color:var(--gold); background:transparent;
+    transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+  }
+  .btn-outline:hover{background:var(--gold);color:#1A0A14; transform: translateY(-2px);}
+  .btn-ghost{
+    border:2px solid var(--line); color:var(--ink); background:transparent;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .btn-ghost:hover{border-color:var(--gold); transform: translateY(-2px);}
+
+  input[type="text"], input[type="tel"], select{
+    background:var(--bg-alt); border:1px solid var(--line); color:var(--ink);
+    transition: border-color 0.2s ease;
+  }
+  input::placeholder{color:rgba(243,239,234,0.4);}
+  input:focus, select:focus{border-color: var(--gold);}
+  input:focus-visible, select:focus-visible, button:focus-visible, a:focus-visible{
+    outline:2px solid var(--gold); outline-offset:2px;
+  }
+  input[type="checkbox"]{accent-color: var(--pink); width:20px; height:20px; flex-shrink:0;}
+
+  .marquee-wrap{overflow:hidden; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background: var(--bg-alt);}
+  .marquee-track{display:flex; width:max-content; animation: marquee 26s linear infinite;}
+  .marquee-track span{
+    display:inline-flex; align-items:center; padding: 0.6rem 1.5rem;
+    font-family:'Rajdhani', sans-serif; font-weight:700; letter-spacing:0.06em;
+    font-size:0.85rem; color:var(--gold); white-space:nowrap;
+  }
+  .marquee-track span::after{content:"★"; margin-left:1.5rem; color: var(--pink);}
+  @keyframes marquee{from{transform:translateX(0);} to{transform:translateX(-50%);}}
+
+  .enter{opacity:0; transform: translateY(16px); animation: enter-up 0.7s ease forwards;}
+  @keyframes enter-up{to{opacity:1; transform:translateY(0);}}
+  .reveal{opacity:0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease;}
+  .reveal.is-visible{opacity:1; transform:translateY(0);}
+
+  /* Formato: línea de tiempo */
+  .timeline{position:relative;}
+  .timeline::before{
+    content:""; position:absolute; left:19px; top:8px; bottom:8px; width:2px;
+    background: linear-gradient(180deg, var(--pink), var(--purple), var(--gold));
+    opacity:0.55;
+  }
+  .round-dot{
+    width:40px; height:40px; border-radius:9999px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    background: var(--bg); border:2px solid var(--pink);
+    font-family:'Bungee', sans-serif; font-size:0.95rem; color:var(--pink);
+    position:relative; z-index:1;
+  }
+  .round-dot.gold{border-color:var(--gold); color:var(--gold);}
+  .stat{
+    background: rgba(255,62,165,0.08); border:1px solid rgba(255,62,165,0.35);
+    border-radius:8px; padding:0.45rem 0.8rem; text-align:center; min-width:84px;
+  }
+  .stat b{display:block; font-family:'Rajdhani',sans-serif; font-size:1.5rem; line-height:1.1; color:var(--gold);}
+  .stat small{font-size:0.7rem; text-transform:uppercase; letter-spacing:0.05em; opacity:0.7;}
+
+  /* Términos */
+  .term-card{background: var(--panel); border:1px solid var(--line); border-radius:10px; padding:1.4rem;}
+  .term-num{
+    font-family:'Rajdhani',sans-serif; font-weight:700; font-size:0.85rem;
+    color:#1A0A14; background:var(--gold); border-radius:9999px;
+    width:26px; height:26px; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .alert-box{
+    border:2px solid var(--red); background: rgba(255,92,92,0.08); border-radius:10px;
+  }
+  .note-box{
+    border:1px solid rgba(242,193,78,0.5); background: rgba(242,193,78,0.07); border-radius:10px;
+  }
+  .yes-box{border:1px solid rgba(95,211,141,0.45); background: rgba(95,211,141,0.06); border-radius:10px;}
+  .no-box{border:1px solid rgba(255,92,92,0.45); background: rgba(255,92,92,0.06); border-radius:10px;}
+
+  #toast{
+    position:fixed; left:50%; bottom:24px; transform:translate(-50%, 20px);
+    background:var(--gold); color:#1A0A14; font-weight:600; font-size:0.85rem;
+    padding:0.8rem 1.2rem; border-radius:8px; opacity:0; pointer-events:none;
+    transition: opacity 0.25s ease, transform 0.25s ease; z-index:50; max-width:90vw; text-align:center;
+  }
+  #toast.show{opacity:1; transform:translate(-50%, 0);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .chrome-text{animation:none; background-position:0% 50%;}
+    .bulb, .bulb.blue{animation:none;}
+    .marquee-track{animation:none;}
+    .enter{opacity:1; transform:none; animation:none;}
+    .reveal{opacity:1; transform:none; transition:none;}
+    .plaque:hover, .btn-pink:hover, .btn-outline:hover, .btn-ghost:hover{transform:none;}
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- HERO -->
+<header class="relative overflow-hidden">
+  <div class="max-w-5xl mx-auto px-6 pt-12 pb-10 md:pt-16 md:pb-12">
+
+    <div class="flex justify-center mb-8 enter" style="animation-delay:0s">
+      <span class="badge-pill px-5 py-2 text-xs md:text-sm uppercase tracking-wide rounded-full">
+        Edición Zona Oeste · <span style="color:var(--gold)">Merlo</span>
+      </span>
+    </div>
+
+    <h1 class="display chrome-text uppercase text-center leading-[0.95] text-[12vw] md:text-[5.2rem] mb-10 enter" style="animation-delay:0.1s">
+      Batallas de<br>las Bandas
+    </h1>
+
+    <div class="grid md:grid-cols-2 gap-6 mb-10">
+      <div class="border hairline rounded-lg p-6 enter" style="background:var(--panel); animation-delay:0.22s">
+        <ul class="space-y-2.5 text-sm md:text-base">
+          <li class="flex gap-2.5 items-start"><span style="color:var(--pink)">★</span> Jurado de lujo</li>
+          <li class="flex gap-2.5 items-start"><span style="color:var(--pink)">★</span> Sorteos y juegos</li>
+          <li class="flex gap-2.5 items-start"><span style="color:var(--pink)">★</span> Bandas en vivo</li>
+          <li class="flex gap-2.5 items-start"><span style="color:var(--pink)">★</span> Comida y bebidas</li>
+          <li class="flex gap-2.5 items-start"><span style="color:var(--pink)">★</span> Regalos y sorpresas</li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-4 enter" style="animation-delay:0.32s">
+        <div class="border hairline rounded-lg p-5 space-y-3" style="background:var(--panel);">
+          <div class="flex items-center gap-3"><span class="bulb"></span><span class="mono-digit text-lg" style="color:var(--gold)">6/12/2026</span></div>
+          <div class="flex items-center gap-3"><span class="bulb blue"></span><span class="mono-digit text-lg" style="color:var(--gold)">13:30 hs</span></div>
+          <div class="flex items-center gap-3"><span class="bulb"></span><span class="text-sm md:text-base">Parque San Martín, Merlo</span></div>
+        </div>
+
+        <div class="border hairline rounded-lg p-5 flex items-center gap-4" style="background:var(--panel);">
+          <!-- Reemplazo del cuadro QR falso por una imagen con QR generado vía API -->
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://github.com" alt="QR Inscripción" class="w-16 h-16 rounded shrink-0 border hairline bg-white p-1">
+          <div>
+            <p class="text-xs uppercase tracking-wide" style="color:var(--gold)">Inscripción abierta</p>
+            <p class="text-sm font-semibold" style="color:var(--pink)">Solo 20 lugares disponibles</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row justify-center gap-3 enter" style="animation-delay:0.42s">
+      <a href="#inscripcion" class="btn-pink glow-pink inline-block text-center px-9 py-4 font-bold uppercase tracking-wide text-sm md:text-base rounded">
+        Inscribí tu banda
+      </a>
+      <a href="#formato" class="btn-ghost inline-block text-center px-7 py-4 font-bold uppercase tracking-wide text-sm md:text-base rounded">
+        Ver formato y condiciones
+      </a>
+    </div>
+  </div>
+
+  <div class="marquee-wrap">
+    <div class="marquee-track" aria-hidden="true">
+      <span>ZONA OESTE · MERLO</span>
+      <span>20 BANDAS</span>
+      <span>$800.000 AL GANADOR</span>
+      <span>6 DE DICIEMBRE 2026</span>
+      <span>SOLO MÚSICOS EN ESCENARIO</span>
+      <span>TU BANDA, TU ESCENARIO, TU MOMENTO</span>
+      <span>ZONA OESTE · MERLO</span>
+      <span>20 BANDAS</span>
+      <span>$800.000 AL GANADOR</span>
+      <span>6 DE DICIEMBRE 2026</span>
+      <span>SOLO MÚSICOS EN ESCENARIO</span>
+      <span>TU BANDA, TU ESCENARIO, TU MOMENTO</span>
+    </div>
+  </div>
+</header>
+
+<!-- QUÉ ES -->
+<section class="max-w-3xl mx-auto px-6 py-14 md:py-20 text-center reveal">
+  <h2 class="display uppercase text-xl md:text-3xl mb-5" style="color:var(--gold)">Una tarde para las bandas de barrio</h2>
+  <p class="opacity-85 leading-relaxed text-sm md:text-base mb-4">
+    Este evento tiene como fin que las bandas de barrio tengan su oportunidad de subir a un escenario con sonido profesional y competir por algo que realmente les sirva para seguir adelante y cumplir sus sueños.
+  </p>
+  <p class="opacity-70 leading-relaxed text-sm md:text-base">
+    Habrá bandas en vivo, juegos, regalos, sorteos y muchas sorpresas. Una tarde para pasarla bien, sin ninguna bandera política ni nada raro: solo gente que ama el arte y ama la cumbia.
+  </p>
+</section>
+
+<!-- FORMATO -->
+<section id="formato" class="border-t border-b hairline py-16 md:py-24" style="background:var(--bg-alt);">
+  <div class="max-w-4xl mx-auto px-6 reveal">
+    <p class="text-center text-xs uppercase tracking-widest mb-3" style="color:var(--pink)">Importante</p>
+    <h2 class="display uppercase text-3xl md:text-5xl text-center mb-3">Formato del evento</h2>
+    <p class="text-center opacity-65 text-sm md:text-base mb-12 max-w-xl mx-auto">
+      20 bandas, 3 rondas. Así se llega a la final.
+    </p>
+
+    <div class="timeline space-y-10">
+      <div class="flex gap-5">
+        <div class="round-dot">1</div>
+        <div class="flex-1">
+          <h3 class="display uppercase text-lg md:text-xl mb-1">Primera ronda · 2 grupos</h3>
+          <p class="opacity-75 text-sm md:text-base leading-relaxed mb-4">
+            Las 20 bandas se dividen en <b>dos grupos de 10</b>. Cada banda tiene <b>10 minutos de show</b>. De cada grupo pasan <b>5 bandas</b> a la siguiente ronda.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <div class="stat"><b>2 × 10</b><small>bandas</small></div>
+            <div class="stat"><b>10 min</b><small>de show</small></div>
+            <div class="stat"><b>5 + 5</b><small>pasan</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="round-dot">2</div>
+        <div class="flex-1">
+          <h3 class="display uppercase text-lg md:text-xl mb-1">Segunda ronda · 1 vs 1</h3>
+          <p class="opacity-75 text-sm md:text-base leading-relaxed mb-4">
+            Las <b>10 bandas</b> clasificadas se enfrentan <b>cara a cara, 1 contra 1</b>. Solo quedan <b>5 bandas</b> para la tercera ronda.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <div class="stat"><b>10</b><small>bandas</small></div>
+            <div class="stat"><b>1 vs 1</b><small>duelos</small></div>
+            <div class="stat"><b>5</b><small>pasan</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="round-dot gold">3</div>
+        <div class="flex-1">
+          <h3 class="display uppercase text-lg md:text-xl mb-1" style="color:var(--gold)">Gran final</h3>
+          <p class="opacity-75 text-sm md:text-base leading-relaxed mb-4">
+            Las <b>5 bandas</b> finalistas tienen apenas <b>5 minutos de show</b> para demostrar quién merece el premio mayor.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <div class="stat"><b>5</b><small>finalistas</small></div>
+            <div class="stat"><b>5 min</b><small>de show</small></div>
+            <div class="stat"><b>1</b><small>campeón</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jurado y público -->
+    <div class="note-box mt-14 p-6">
+      <h3 class="font-bold mb-2" style="color:var(--gold)">Quién decide</h3>
+      <p class="text-sm md:text-base opacity-85 leading-relaxed">
+        Las decisiones las toma el <b>jurado</b> y <b>una vez que decide no hay vuelta atrás</b>. El público también juega un papel importante en esa decisión, por eso es clave que cada banda traiga a su gente: el agite del público es fundamental para las bandas.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PREMIOS Y ENTRADAS -->
+<section class="max-w-5xl mx-auto px-6 py-16 md:py-24 border-b hairline reveal">
+  <h2 class="display uppercase text-2xl md:text-3xl text-center mb-8" style="color:var(--gold)">Premios</h2>
+  <div class="grid md:grid-cols-3 gap-5 mb-16">
+    <div class="plaque rounded-lg p-6 text-center">
+      <p class="text-2xl mb-2">👑</p>
+      <p class="text-xs uppercase tracking-wide opacity-60 mb-1">1er lugar</p>
+      <p class="mono-digit text-2xl md:text-3xl" style="color:var(--gold)">$800.000</p>
+    </div>
+    <div class="plaque rounded-lg p-6 text-center">
+      <p class="text-2xl mb-2">🎙️</p>
+      <p class="text-xs uppercase tracking-wide opacity-60 mb-1">2do lugar</p>
+      <p class="font-semibold text-sm md:text-base">Un tema grabado de estudio</p>
+    </div>
+    <div class="plaque rounded-lg p-6 text-center">
+      <p class="text-2xl mb-2">🥁</p>
+      <p class="text-xs uppercase tracking-wide opacity-60 mb-1">3er lugar</p>
+      <p class="font-semibold text-sm md:text-base">5 hs en una sala de ensayo</p>
+    </div>
+  </div>
+
+  <h2 class="display uppercase text-2xl md:text-3xl text-center mb-8">Entradas</h2>
+  <div class="grid md:grid-cols-2 gap-8">
+    <div class="ticket relative rounded-lg p-7 text-center">
+      <p class="text-xs uppercase tracking-wide opacity-60 mb-2">Entrada general</p>
+      <p class="mono-digit text-4xl md:text-5xl mb-3" style="color:var(--gold)">$15.000</p>
+      <p class="text-sm opacity-75 leading-relaxed">Con tu entrada participás de los sorteos y te llevás un vaso de vino o cerveza.</p>
+    </div>
+    <div class="ticket relative rounded-lg p-7 text-center">
+      <p class="text-xs uppercase tracking-wide opacity-60 mb-2">Entradas para el público de tu banda</p>
+      <p class="mono-digit text-4xl md:text-5xl mb-3" style="color:var(--pink)">$13.000</p>
+      <p class="text-sm opacity-75 leading-relaxed">Cada banda tiene <b>5 entradas</b> a precio especial para vender a su gente, <b>más 1 entrada de regalo</b>.</p>
+    </div>
+  </div>
+  <p class="text-center opacity-60 text-xs md:text-sm mt-6">Hay más entradas a la venta para todo público a $15.000.</p>
+</section>
+
+<!-- TÉRMINOS Y CONDICIONES -->
+<section id="terminos" class="py-16 md:py-24 border-b hairline" style="background:var(--bg-alt);">
+  <div class="max-w-4xl mx-auto px-6 reveal">
+    <p class="text-center text-xs uppercase tracking-widest mb-3" style="color:var(--pink)">Leelo completo antes de inscribirte</p>
+    <h2 class="display uppercase text-3xl md:text-5xl text-center mb-3">Términos y condiciones</h2>
+    <p class="text-center opacity-65 text-sm md:text-base mb-12 max-w-xl mx-auto">
+      Para que el día del evento no haya malos entendidos ni conflictos. Al inscribirte, tu banda acepta todo lo que figura acá.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-5 mb-6">
+      <div class="term-card">
+        <div class="flex items-center gap-3 mb-3"><span class="term-num">1</span><h3 class="font-bold">Solo músicos en la inscripción</h3></div>
+        <p class="text-sm opacity-80 leading-relaxed">
+          La inscripción es <b>únicamente para músicos</b>. <b>No se pueden llevar acompañantes ni ayudantes</b>: en el evento hay sonidista y ayudantes de producción que se ocupan de todo.
+        </p>
+      </div>
+      <div class="term-card">
+        <div class="flex items-center gap-3 mb-3"><span class="term-num">2</span><h3 class="font-bold">Instrumentos</h3></div>
+        <p class="text-sm opacity-80 leading-relaxed">
+          En el evento hay <b>bajo y guitarra</b>. <b>Los demás instrumentos los tiene que traer cada banda.</b> En la inscripción hay que cargar el nombre de cada músico y el instrumento que toca.
+        </p>
+      </div>
+      <div class="term-card">
+        <div class="flex items-center gap-3 mb-3"><span class="term-num">3</span><h3 class="font-bold">Decisiones del jurado</h3></div>
+        <p class="text-sm opacity-80 leading-relaxed">
+          Las decisiones las toma el jurado, con la influencia del público. <b>Una vez que el jurado decide, no hay retorno.</b>
+        </p>
+      </div>
+      <div class="term-card">
+        <div class="flex items-center gap-3 mb-3"><span class="term-num">4</span><h3 class="font-bold">Pago de la inscripción</h3></div>
+        <p class="text-sm opacity-80 leading-relaxed">
+          La inscripción cuesta <b>$60.000</b> y el <b>único medio de pago es Mercado Pago</b>. La banda queda inscripta cuando se acredita el pago. Después de pagar hay que <b>enviar el comprobante por WhatsApp</b> para confirmar el lugar.
+        </p>
+      </div>
+    </div>
+
+    <!-- Descalificación -->
+    <div class="alert-box p-6 md:p-7 mb-6">
+      <div class="flex items-start gap-3">
+        <span class="text-2xl leading-none">⚠️</span>
+        <div>
+          <h3 class="font-bold text-lg mb-2" style="color:var(--red)">Descalificación de la banda</h3>
+          <p class="text-sm md:text-base opacity-90 leading-relaxed">
+            Si una banda lleva a un participante que <b>no está en la inscripción</b> o que <b>no toca un instrumento</b>, ese participante <b>deberá pagar la entrada</b>. <b>De lo contrario, la banda queda descalificada.</b>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Permitido / No permitido -->
+    <div class="grid md:grid-cols-2 gap-5">
+      <div class="yes-box p-6">
+        <h3 class="font-bold mb-3" style="color:var(--green)">✔ Sí se permite</h3>
+        <ul class="space-y-2 text-sm md:text-base">
+          <li class="flex gap-2.5"><span style="color:var(--green)">•</span> Buena onda</li>
+          <li class="flex gap-2.5"><span style="color:var(--green)">•</span> Ganas de pasarla bien</li>
+          <li class="flex gap-2.5"><span style="color:var(--green)">•</span> Divertirse</li>
+        </ul>
+      </div>
+      <div class="no-box p-6">
+        <h3 class="font-bold mb-3" style="color:var(--red)">✖ No se permite</h3>
+        <ul class="space-y-2 text-sm md:text-base">
+          <li class="flex gap-2.5"><span style="color:var(--red)">•</span> Remeras de fútbol argentino</li>
+          <li class="flex gap-2.5"><span style="color:var(--red)">•</span> Ingreso con bebidas o alimentos</li>
+          <li class="flex gap-2.5"><span style="color:var(--red)">•</span> Mala onda</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSCRIPCION -->
+<section id="inscripcion" class="py-16 md:py-24 reveal">
+  <div class="max-w-2xl mx-auto px-6">
+    <h2 class="display uppercase text-2xl md:text-4xl mb-2 text-center">Inscripción</h2>
+    <p class="opacity-60 text-sm mb-8 text-center">Completá los datos de tu banda para asegurar tu lugar.</p>
+
+    <!-- Avisos clave -->
+    <div class="note-box p-5 mb-6 text-sm leading-relaxed">
+      <p class="font-bold mb-2" style="color:var(--gold)">Antes de completar, tené en cuenta:</p>
+      <ul class="space-y-1.5 opacity-90">
+        <li class="flex gap-2.5"><span style="color:var(--gold)">•</span> <span>Solo se inscriben <b>músicos</b>. Sin acompañantes ni ayudantes.</span></li>
+        <li class="flex gap-2.5"><span style="color:var(--gold)">•</span> <span>En el evento hay <b>bajo y guitarra</b>. El resto de los instrumentos los traen ustedes.</span></li>
+        <li class="flex gap-2.5"><span style="color:var(--gold)">•</span> <span>Quien suba sin estar anotado o sin tocar un instrumento <b>paga entrada, o la banda queda descalificada</b>.</span></li>
+      </ul>
+    </div>
+
+    <form id="form" class="border hairline rounded-lg p-6 md:p-8 space-y-6" style="background:var(--panel);" onsubmit="return false;">
+
+      <div class="grid md:grid-cols-2 gap-5">
+        <div>
+          <label for="banda" class="block text-xs uppercase tracking-wide opacity-60 mb-2">Nombre de banda</label>
+          <input id="banda" type="text" placeholder="Ej: Los Fantasmas del Oeste" class="w-full px-4 py-3 text-sm rounded">
+        </div>
+        <div>
+          <label for="lider" class="block text-xs uppercase tracking-wide opacity-60 mb-2">Nombre del líder</label>
+          <input id="lider" type="text" placeholder="Nombre y apellido" class="w-full px-4 py-3 text-sm rounded">
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-5">
+        <div>
+          <label for="wsp" class="block text-xs uppercase tracking-wide opacity-60 mb-2">WhatsApp del líder</label>
+          <input id="wsp" type="tel" placeholder="11 2345 6789" class="w-full px-4 py-3 text-sm rounded">
+        </div>
+        <div>
+          <label for="email" class="block text-xs uppercase tracking-wide opacity-60 mb-2">Email del líder</label>
+          <input id="email" type="text" inputmode="email" autocomplete="email" placeholder="tu@email.com" class="w-full px-4 py-3 text-sm rounded">
+        </div>
+      </div>
+
+      <div class="pt-2 border-t hairline">
+        <div class="flex items-end justify-between mt-5 mb-1">
+          <p class="text-xs uppercase tracking-wide opacity-60">Músicos de la banda</p>
+          <p class="text-xs opacity-60"><span id="count">0</span> cargados</p>
+        </div>
+        <p class="text-xs opacity-60 mb-4">Cargá a <b>todos</b> los que suben al escenario: nombre e instrumento que toca cada uno.</p>
+
+        <div class="yes-box p-3 mb-4 text-xs md:text-sm" style="background:rgba(242,193,78,0.07); border-color:rgba(242,193,78,0.5);">
+          🎸 <b>En el evento hay bajo y guitarra.</b> Los demás instrumentos los trae la banda.
+        </div>
+
+        <div id="musicos-list" class="space-y-3"></div>
+        <button type="button" id="add-musico" class="btn-outline mt-4 px-4 py-2 text-xs font-semibold uppercase tracking-wide rounded">
+          + Agregar músico
+        </button>
+      </div>
+
+      <div class="pt-6 border-t hairline flex items-center justify-between">
+        <span class="text-xs uppercase tracking-wide opacity-60">Total inscripción</span>
+        <span class="mono-digit text-3xl" style="color:var(--gold)">$60.000</span>
+      </div>
+
+      <label class="flex items-start gap-3 cursor-pointer text-sm leading-relaxed pt-2">
+        <input id="acepto" type="checkbox">
+        <span>Leí y acepto los <a href="#terminos" class="underline" style="color:var(--gold)">términos y condiciones</a> y el <a href="#formato" class="underline" style="color:var(--gold)">formato del evento</a>. Entiendo que solo suben músicos inscriptos y que, si no, la banda puede ser descalificada.</span>
+      </label>
+
+      <div class="space-y-3">
+        <button id="pagar" type="button" disabled class="btn-pink glow-pink w-full py-4 font-bold uppercase tracking-wide text-sm rounded">
+          Pagar inscripción con Mercado Pago
+        </button>
+        <p class="text-xs text-center opacity-70">El único medio de pago es Mercado Pago.</p>
+        <a id="wsp-confirm" href="#" target="_blank" rel="noopener" class="btn-outline block w-full py-4 text-center font-bold uppercase tracking-wide text-sm rounded">
+          Ya pagué: enviar comprobante por WhatsApp
+        </a>
+        <p class="text-xs text-center opacity-60">Mandanos el comprobante para confirmar tu lugar.</p>
+      </div>
+
+      <p class="text-xs opacity-50 text-center">
+        Serás redirigido a Mercado Pago para completar tu compra de forma segura.<br>
+        Tu lugar se confirma por WhatsApp una vez acreditado el pago.
+      </p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t hairline py-12">
+  <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+    <p class="display uppercase text-base chrome-text">Batallas de las Bandas</p>
+    <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-sm opacity-75">
+      <a id="wsp-footer" href="#" class="hover:opacity-100">WhatsApp</a>
+      <!-- Actualización de enlaces vacíos con placeholders y target="_blank" -->
+      <a href="https://instagram.com/tu_usuario" target="_blank" rel="noopener" class="hover:opacity-100">Instagram</a>
+      <a href="https://tiktok.com/@tu_usuario" target="_blank" rel="noopener" class="hover:opacity-100">TikTok</a>
+      <a href="#terminos" class="hover:opacity-100">Términos y condiciones</a>
+    </div>
+  </div>
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  const list = document.getElementById('musicos-list');
+  const countEl = document.getElementById('count');
+  const instrumentos = [
+    'Batería', 'Voz', 'Teclado', 'Percusión / Timbales', 'Güiro / Güira',
+    'Acordeón', 'Saxo', 'Trompeta', 'Trombón', 'Bajo', 'Guitarra', 'Otro'
+  ];
+
+  function updateCount(){
+    countEl.textContent = list.children.length;
+    [...list.children].forEach((row, i) => {
+      row.querySelector('.nombre').placeholder = 'Nombre del músico ' + (i + 1);
+    });
+  }
+
+  function addMusico(){
+    const row = document.createElement('div');
+    row.className = 'flex flex-col sm:flex-row gap-2 sm:gap-3 sm:items-center';
+    row.innerHTML = `
+      <input type="text" class="nombre flex-1 px-4 py-3 text-sm rounded" aria-label="Nombre del músico">
+      <div class="flex gap-2 sm:gap-3 items-center">
+        <select class="instrumento flex-1 sm:w-52 px-3 py-3 text-sm rounded" aria-label="Instrumento que toca">
+          <option value="" disabled selected>Instrumento que toca</option>
+          ${instrumentos.map(i => `<option>${i}</option>`).join('')}
+        </select>
+        <button type="button" aria-label="Quitar músico" class="remove-musico shrink-0 w-10 h-10 flex items-center justify-center border hairline rounded text-sm opacity-60 hover:opacity-100">✕</button>
+      </div>
+    `;
+    row.querySelector('.remove-musico').addEventListener('click', () => { row.remove(); updateCount(); });
+    list.appendChild(row);
+    updateCount();
+  }
+
+  document.getElementById('add-musico').addEventListener('click', addMusico);
+  addMusico(); addMusico(); addMusico();
+
+  // Aceptar términos habilita el pago
+  const acepto = document.getElementById('acepto');
+  const pagar = document.getElementById('pagar');
+  acepto.addEventListener('change', () => { pagar.disabled = !acepto.checked; });
+
+  // ====== CONFIGURACIÓN: pegá acá tus links ======
+const FORMSPREE_URL = 'https://formspree.io/f/myekwqqq';
+const MP_LINK       = 'https://link.mercadopago.com.ar/enzo38';
+const WSP_NUMBER    = '5491133681459';
+// ===============================================
+
+  const toast = document.getElementById('toast');
+  let t;
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(t);
+    t = setTimeout(() => toast.classList.remove('show'), 4000);
+  }
+
+  const wspConfirm = document.getElementById('wsp-confirm');
+  const wspFooter = document.getElementById('wsp-footer');
+  if (!WSP_NUMBER.includes('TU_NUMERO')) {
+    wspFooter.href = 'https://wa.me/' + WSP_NUMBER;
+    wspFooter.target = '_blank';
+    wspFooter.rel = 'noopener';
+  }
+  wspConfirm.addEventListener('click', (e) => {
+    if (WSP_NUMBER.includes('TU_NUMERO')) {
+      e.preventDefault();
+      return showToast('Falta pegar el número de WhatsApp en la configuración.');
+    }
+    const banda = document.getElementById('banda').value.trim();
+    const msg = 'Hola! Ya pagué la inscripción de mi banda' + (banda ? ' "' + banda + '"' : '') +
+      ' en Batallas de las Bandas. Te mando el comprobante para confirmar mi lugar.';
+    wspConfirm.href = 'https://wa.me/' + WSP_NUMBER + '?text=' + encodeURIComponent(msg);
+  });
+
+  pagar.addEventListener('click', async () => {
+    const val = id => document.getElementById(id).value.trim();
+    const musicos = [...list.children].map(r => ({
+      nombre: r.querySelector('.nombre').value.trim(),
+      instrumento: r.querySelector('.instrumento').value
+    }));
+
+    if (!val('banda') || !val('lider') || !val('wsp') || !val('email')) {
+      return showToast('Completá los datos de la banda y del líder.');
+    }
+    if (!/^\S+@\S+\.\S+$/.test(val('email'))) {
+      return showToast('Revisá el email: parece incompleto.');
+    }
+    if (!musicos.length || musicos.some(m => !m.nombre || !m.instrumento)) {
+      return showToast('Cada músico necesita nombre e instrumento.');
+    }
+    if (FORMSPREE_URL.includes('TU_ID') || MP_LINK.includes('TU_LINK')) {
+      return showToast('Falta pegar tu link de Formspree y Mercado Pago en el código.');
+    }
+
+    pagar.disabled = true;
+    pagar.textContent = 'Enviando…';
+    try {
+      const res = await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          _subject: 'Nueva inscripción: ' + val('banda'),
+          banda: val('banda'),
+          lider: val('lider'),
+          whatsapp: val('wsp'),
+          email: val('email'),
+          cantidad_musicos: musicos.length,
+          musicos: musicos.map((m, i) => `${i + 1}. ${m.nombre} - ${m.instrumento}`).join('\n')
+        })
+      });
+      if (!res.ok) throw new Error('formspree');
+      window.location.href = MP_LINK;
+    } catch (e) {
+      pagar.disabled = false;
+      pagar.textContent = 'Pagar inscripción con Mercado Pago';
+      showToast('No pudimos enviar la inscripción. Probá de nuevo.');
+    }
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){ entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  }
+</script>
+</body>
+</html>
