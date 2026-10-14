@@ -197,12 +197,17 @@
 <!-- HERO -->
 <header class="relative overflow-hidden">
   
-  <!-- Logo Banner Full Width -->
-  <div class="w-full bg-black flex justify-center enter border-b hairline" style="animation-delay:0s">
+  <!-- Logo Banner Full Width con Fusión Suave (Sin borde duro) -->
+  <div class="relative w-full bg-black flex justify-center enter" style="animation-delay:0s">
       <img src="logo-hero.png" alt="Batalla de las Bandas" class="w-full max-w-screen-2xl h-auto object-cover">
+      
+      <!-- Este div crea el degradado mágico que funde el negro con tu fondo -->
+      <div class="absolute bottom-0 left-0 w-full h-24 md:h-40 bg-gradient-to-t from-[#0A0A14] to-transparent pointer-events-none"></div>
   </div>
 
-  <div class="max-w-5xl mx-auto px-6 pt-10 pb-10 md:pb-12">
+  <!-- El contenedor que sigue (con margen negativo para acercar el contenido) -->
+  <div class="max-w-5xl mx-auto px-6 pt-4 pb-10 md:pb-12 relative z-10 -mt-4 md:-mt-8">
+    
     <div class="flex justify-center mb-10 enter" style="animation-delay:0.1s">
       <span class="badge-pill px-5 py-2 text-xs md:text-sm uppercase tracking-wide rounded-full">
         Edición Zona Oeste · <span style="color:var(--gold)">Merlo</span>
