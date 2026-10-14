@@ -707,31 +707,38 @@
     revealEls.forEach(el => el.classList.add('is-visible'));
   }
 
-  async function cargarCupos() {
-  const sheetCSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQkn0C9JDDYojR6Z7iwiJ6-knFnbwfJEiKb4RNZK9Ey3n3JkioOIn5cl2-bIks1s-hUAFhQHZ4GvPrM/pub?gid=286285742&single=true&output=csv'; 
-  try {
-    const res = await fetch(sheetCSV, { cache: "no-store" });
-    const cuposRestantes = parseInt((await res.text()).trim());
+ async function cargarCupos() {
+    const sheetCSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQkn0C9JDDYojR6Z7iwiJ6-knFnbwfJEiKb4RNZK9Ey3n3JkioOIn5cl2-bIks1s-hUAFhQHZ4GvPrM/pub?gid=286285742&single=true&output=csv'; 
+    try {
+      const res = await fetch(sheetCSV, { cache: "no-store" });
+      const csvText = await res.text();
+      
+      // Separamos el texto por saltos de línea (filas) y luego por comas (columnas)
+      const filas = csvText.split('\n');
+      const primeraFila = filas[0].split(',');
+      
+      // Tomamos el primer valor (celda A1) y lo convertimos a número
+      const cuposRestantes = parseInt(primeraFila[0].trim());
 
-    if(!isNaN(cuposRestantes)) {
-      const spanCupos = document.getElementById('cupos-restantes');
-      if(spanCupos) spanCupos.textContent = cuposRestantes;
+      if(!isNaN(cuposRestantes)) {
+        const spanCupos = document.getElementById('cupos-restantes');
+        if(spanCupos) spanCupos.textContent = cuposRestantes;
 
-      if (cuposRestantes <= 0) {
-        if(spanCupos) spanCupos.textContent = "0";
-        const btn = document.getElementById('btn-mostrar-inscripcion');
-        if(btn) {
-           btn.disabled = true;
-           btn.textContent = "Cupos Agotados";
-           btn.classList.add('opacity-50', 'cursor-not-allowed');
+        if (cuposRestantes <= 0) {
+          if(spanCupos) spanCupos.textContent = "0";
+          const btn = document.getElementById('btn-mostrar-inscripcion');
+          if(btn) {
+             btn.disabled = true;
+             btn.textContent = "Cupos Agotados";
+             btn.classList.add('opacity-50', 'cursor-not-allowed');
+          }
         }
       }
+    } catch (error) {
+      console.error("Error cargando cupos");
     }
-  } catch (error) {
-    console.error("Error cargando cupos");
   }
-}
-cargarCupos();
+  cargarCupos();
 </script>
 </body>
 </html>
