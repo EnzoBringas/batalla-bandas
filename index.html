@@ -708,7 +708,7 @@
   }
 
   async function cargarCupos() {
-  const sheetCSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQkn0C9JDDYojR6Z7iwiJ6-knFnbwfJEiKb4RNZK9Ey3n3JkioOIn5cl2-bIks1s-hUAFhQHZ4GvPrM/pub?output=csv'; 
+  const sheetCSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQkn0C9JDDYojR6Z7iwiJ6-knFnbwfJEiKb4RNZK9Ey3n3JkioOIn5cl2-bIks1s-hUAFhQHZ4GvPrM/pub?gid=286285742&single=true&output=csv'; 
   try {
     const res = await fetch(sheetCSV, { cache: "no-store" });
     const cuposRestantes = parseInt((await res.text()).trim());
