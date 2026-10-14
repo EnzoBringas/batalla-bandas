@@ -618,7 +618,7 @@
   acepto.addEventListener('change', () => { pagar.disabled = !acepto.checked; });
 
   // ====== CONFIGURACIÓN: pegá acá tus links ======
-  const FORMSPREE_URL = 'https://formspree.io/f/myekwqqq';
+  const FORMSPREE_URL = 'https://hook.us2.make.com/t7we86rc75c9udvdz3ddbutidjcfoixm';
   const MP_LINK       = 'https://link.mercadopago.com.ar/enzo38';
   const WSP_NUMBER    = '5491133681459';
   // ===============================================
@@ -706,6 +706,32 @@
   } else {
     revealEls.forEach(el => el.classList.add('is-visible'));
   }
+
+  async function cargarCupos() {
+  const sheetCSV = 'PEGÁ_EL_LINK_CSV_DE_TU_GOOGLE_SHEET_ACÁ'; 
+  try {
+    const res = await fetch(sheetCSV, { cache: "no-store" });
+    const cuposRestantes = parseInt((await res.text()).trim());
+
+    if(!isNaN(cuposRestantes)) {
+      const spanCupos = document.getElementById('cupos-restantes');
+      if(spanCupos) spanCupos.textContent = cuposRestantes;
+
+      if (cuposRestantes <= 0) {
+        if(spanCupos) spanCupos.textContent = "0";
+        const btn = document.getElementById('btn-mostrar-inscripcion');
+        if(btn) {
+           btn.disabled = true;
+           btn.textContent = "Cupos Agotados";
+           btn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+      }
+    }
+  } catch (error) {
+    console.error("Error cargando cupos");
+  }
+}
+cargarCupos();
 </script>
 </body>
 </html>
