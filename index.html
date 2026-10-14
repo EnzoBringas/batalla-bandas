@@ -237,7 +237,7 @@
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://github.com" alt="QR Inscripción" class="w-16 h-16 rounded shrink-0 border hairline bg-white p-1">
           <div>
             <p class="text-xs uppercase tracking-wide" style="color:var(--gold)">Inscripción abierta</p>
-            <p class="text-sm font-semibold" style="color:var(--pink)">Solo 20 lugares disponibles</p>
+            <p class="text-sm font-semibold" style="color:var(--pink)">Solo <span id="cupos-restantes">20</span> lugares disponibles</p>
           </div>
         </div>
       </div>
@@ -708,7 +708,7 @@
   }
 
   async function cargarCupos() {
-  const sheetCSV = 'PEGÁ_EL_LINK_CSV_DE_TU_GOOGLE_SHEET_ACÁ'; 
+  const sheetCSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQkn0C9JDDYojR6Z7iwiJ6-knFnbwfJEiKb4RNZK9Ey3n3JkioOIn5cl2-bIks1s-hUAFhQHZ4GvPrM/pub?output=csv'; 
   try {
     const res = await fetch(sheetCSV, { cache: "no-store" });
     const cuposRestantes = parseInt((await res.text()).trim());
