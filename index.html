@@ -191,8 +191,10 @@
 <body class="antialiased">
 
 <!-- HERO -->
-<header class="relative overflow-hidden">
-  <div class="max-w-5xl mx-auto px-6 pt-12 pb-10 md:pt-16 md:pb-12">
+<!-- Imagen del logo reemplazando el texto H1 -->
+    <div class="flex justify-center mb-12 enter" style="animation-delay:0.1s">
+        <img src="logo-hero.png" alt="Batalla de las Bandas" class="w-full max-w-3xl h-auto object-contain drop-shadow-2xl">
+    </div>
 
     <div class="flex justify-center mb-8 enter" style="animation-delay:0s">
       <span class="badge-pill px-5 py-2 text-xs md:text-sm uppercase tracking-wide rounded-full">
@@ -277,59 +279,62 @@
   <div class="max-w-4xl mx-auto px-6 reveal">
     <p class="text-center text-xs uppercase tracking-widest mb-3" style="color:var(--pink)">Importante</p>
     <h2 class="display uppercase text-3xl md:text-5xl text-center mb-3">Formato del evento</h2>
-    <p class="text-center opacity-65 text-sm md:text-base mb-12 max-w-xl mx-auto">
+    <p class="text-center opacity-65 text-sm md:text-base mb-8 max-w-xl mx-auto">
       20 bandas, 3 rondas. Así se llega a la final.
     </p>
 
-    <div class="timeline space-y-10">
-      <div class="flex gap-5">
-        <div class="round-dot">1</div>
-        <div class="flex-1">
-          <h3 class="display uppercase text-lg md:text-xl mb-1">Primera ronda · 2 grupos</h3>
-          <p class="opacity-75 text-sm md:text-base leading-relaxed mb-4">
-            Las 20 bandas se dividen en <b>dos grupos de 10</b>. Cada banda tiene <b>10 minutos de show</b>. De cada grupo pasan <b>5 bandas</b> a la siguiente ronda.
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <div class="stat"><b>2 × 10</b><small>bandas</small></div>
-            <div class="stat"><b>10 min</b><small>de show</small></div>
-            <div class="stat"><b>5 + 5</b><small>pasan</small></div>
-          </div>
+    <!-- FIXTURE / BRACKET -->
+    <div class="flex flex-col items-center max-w-3xl mx-auto mt-10">
+      
+      <!-- RONDA 1 -->
+      <div class="w-full flex flex-col md:flex-row gap-6 md:gap-0 justify-between">
+        <!-- Grupo A -->
+        <div class="w-full md:w-[45%] bg-[var(--panel)] border border-[var(--line)] rounded-lg p-5 text-center z-10 relative">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--bg)] border border-[var(--pink)] text-[var(--pink)] text-xs font-bold px-4 py-1 rounded-full">RONDA 1</span>
+          <h3 class="display text-xl mt-2">GRUPO A</h3>
+          <p class="text-sm opacity-75 mb-3">10 Bandas · 10 min de show</p>
+          <div class="bg-[rgba(255,62,165,0.08)] border border-[var(--pink)] rounded py-2 text-[var(--gold)] text-sm font-bold">Pasan 5 bandas</div>
+        </div>
+        <!-- Grupo B -->
+        <div class="w-full md:w-[45%] bg-[var(--panel)] border border-[var(--line)] rounded-lg p-5 text-center z-10 relative">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--bg)] border border-[var(--pink)] text-[var(--pink)] text-xs font-bold px-4 py-1 rounded-full">RONDA 1</span>
+          <h3 class="display text-xl mt-2">GRUPO B</h3>
+          <p class="text-sm opacity-75 mb-3">10 Bandas · 10 min de show</p>
+          <div class="bg-[rgba(255,62,165,0.08)] border border-[var(--pink)] rounded py-2 text-[var(--gold)] text-sm font-bold">Pasan 5 bandas</div>
         </div>
       </div>
 
-      <div class="flex gap-5">
-        <div class="round-dot">2</div>
-        <div class="flex-1">
-          <h3 class="display uppercase text-lg md:text-xl mb-1">Segunda ronda · 1 vs 1</h3>
-          <p class="opacity-75 text-sm md:text-base leading-relaxed mb-4">
-            Las <b>10 bandas</b> clasificadas se enfrentan <b>cara a cara, 1 contra 1</b>. Solo quedan <b>5 bandas</b> para la tercera ronda.
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <div class="stat"><b>10</b><small>bandas</small></div>
-            <div class="stat"><b>1 vs 1</b><small>duelos</small></div>
-            <div class="stat"><b>5</b><small>pasan</small></div>
-          </div>
-        </div>
+      <!-- Conectores Visuales (Desktop) -->
+      <div class="hidden md:flex w-full justify-center relative -mt-1">
+        <div class="w-[55%] h-10 border-l-2 border-r-2 border-b-2 border-[var(--pink)] opacity-40 rounded-b-lg"></div>
+      </div>
+      <div class="hidden md:block w-0.5 h-6 bg-[var(--pink)] opacity-40"></div>
+
+      <!-- Conector Visual (Mobile) -->
+      <div class="md:hidden w-0.5 h-8 bg-[var(--pink)] opacity-40"></div>
+
+      <!-- RONDA 2 -->
+      <div class="w-full md:w-[75%] bg-[var(--panel)] border border-[var(--line)] rounded-lg p-6 text-center z-10 relative">
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--bg)] border border-[#8B5CF6] text-[#8B5CF6] text-xs font-bold px-4 py-1 rounded-full">RONDA 2</span>
+        <h3 class="display text-2xl mt-2 text-[#8B5CF6]">SORTEO 1 VS 1 (ZAPADA)</h3>
+        <p class="text-sm md:text-base opacity-85 mb-4">Las <b>10 bandas</b> clasificadas se enfrentan cara a cara por sorteo con <b>5 minutos de show</b>.<br><span class="text-[var(--pink)] font-semibold mt-2 inline-block">Excepción obligatoria:</span> al ser 1 vs 1, deben comprimirse estilo zapada. Solo se permite <b>teclado, batería, bajo, guitarra y voz</b>.</p>
+        <div class="bg-[rgba(139,92,246,0.1)] border border-[#8B5CF6] rounded py-2 text-[var(--gold)] font-bold">Pasan 5 bandas</div>
       </div>
 
-      <div class="flex gap-5">
-        <div class="round-dot gold">3</div>
-        <div class="flex-1">
-          <h3 class="display uppercase text-lg md:text-xl mb-1" style="color:var(--gold)">Gran final</h3>
-          <p class="opacity-75 text-sm md:text-base leading-relaxed mb-4">
-            Las <b>5 bandas</b> finalistas tienen apenas <b>5 minutos de show</b> para demostrar quién merece el premio mayor.
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <div class="stat"><b>5</b><small>finalistas</small></div>
-            <div class="stat"><b>5 min</b><small>de show</small></div>
-            <div class="stat"><b>1</b><small>campeón</small></div>
-          </div>
-        </div>
+      <!-- Conector -->
+      <div class="w-0.5 h-10 bg-[#8B5CF6] opacity-40"></div>
+
+      <!-- GRAN FINAL -->
+      <div class="w-full md:w-[65%] bg-[var(--panel)] border-2 border-[var(--gold)] rounded-lg p-7 text-center z-10 relative" style="box-shadow: 0 0 25px rgba(242,193,78,0.15);">
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--bg)] border border-[var(--gold)] text-[var(--gold)] text-xs font-bold px-4 py-1 rounded-full">GRAN FINAL</span>
+        <h3 class="display text-3xl mt-2 text-[var(--gold)] mb-1">EL CIERRE</h3>
+        <p class="text-sm opacity-90 mb-5">Las <b>5 bandas</b> finalistas tienen <b>10 minutos de show</b> para dejarlo todo en el escenario y demostrar quién merece el premio mayor.</p>
+        <div class="bg-[rgba(242,193,78,0.15)] border border-[var(--gold)] rounded py-3 text-[var(--pink)] font-bold text-xl uppercase tracking-widest">1 Campeón 🏆</div>
       </div>
     </div>
 
     <!-- Jurado y público -->
-    <div class="note-box mt-14 p-6">
+    <div class="note-box mt-16 p-6 max-w-3xl mx-auto">
       <h3 class="font-bold mb-2" style="color:var(--gold)">Quién decide</h3>
       <p class="text-sm md:text-base opacity-85 leading-relaxed">
         Las decisiones las toma el <b>jurado</b> y <b>una vez que decide no hay vuelta atrás</b>. El público también juega un papel importante en esa decisión, por eso es clave que cada banda traiga a su gente: el agite del público es fundamental para las bandas.
